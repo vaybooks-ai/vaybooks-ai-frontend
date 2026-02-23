@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Layout from './components/layout/Layout'
+import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import FirmSetupPage from './pages/FirmSetupPage'
@@ -20,7 +21,7 @@ function App() {
           
           {/* Protected routes with layout */}
           <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/upload" replace />} />
+            <Route index element={<HomePage />} />
             <Route path="firm-setup" element={<FirmSetupPage />} />
             <Route path="template-wizard" element={<TemplateWizardPage />} />
             <Route path="upload" element={<UploadPage />} />

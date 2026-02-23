@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import * as firmsApi from '../api/firms'
 
 const FirmSetupPage = () => {
@@ -7,6 +8,7 @@ const FirmSetupPage = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { selectFirm } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -15,9 +17,12 @@ const FirmSetupPage = () => {
 
     try {
       // Create firm with just the name for now
-      await firmsApi.createFirm(firmName)
-      // Navigate to upload page instead of template wizard
-      navigate('/upload')
+      const response = await firmsApi.createFirm(firmName)
+      const firmId = response.data.id
+      // Store selected firm in context
+      selectFirm(firmId)
+      // Navigate to insights page
+      navigate('/insights')
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create firm')
     } finally {

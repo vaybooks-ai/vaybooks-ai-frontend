@@ -15,6 +15,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(localStorage.getItem('token'))
+  const [selectedFirm, setSelectedFirm] = useState(localStorage.getItem('selectedFirm'))
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
@@ -27,6 +28,16 @@ export const AuthProvider = ({ children }) => {
       setLoading(false)
     }
   }, [token])
+
+  const selectFirm = (firmId) => {
+    localStorage.setItem('selectedFirm', firmId)
+    setSelectedFirm(firmId)
+  }
+
+  const clearFirm = () => {
+    localStorage.removeItem('selectedFirm')
+    setSelectedFirm(null)
+  }
 
   const login = async (email, password) => {
     try {
@@ -66,19 +77,24 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('selectedFirm')
     setToken(null)
     setUser(null)
+    setSelectedFirm(null)
     navigate('/login')
   }
 
   const value = {
     user,
     token,
+    selectedFirm,
     loading,
     isAuthenticated: !!token,
     login,
     signup,
-    logout
+    logout,
+    selectFirm,
+    clearFirm
   }
 
   return (
