@@ -1,0 +1,43 @@
+{
+  "name": "vaybooks-ai-frontend",
+  "version": "0.1.0",
+  "description": "React/Vite UI for VayBooks AI",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.3",
+    "axios": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.12",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.33",
+    "autoprefixer": "^10.4.17",
+    "@playwright/test": "^1.41.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaybooks-ai/vaybooks-ai-frontend.git"
+  },
+  "keywords": [
+    "vaybooks",
+    "ai",
+    "inventory",
+    "accounting",
+    "react",
+    "vite"
+  ],
+  "author": "VayBooks AI Team",
+  "license": "ISC"
+}
