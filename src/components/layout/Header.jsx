@@ -1,4 +1,5 @@
 import { useAuth } from '../../context/AuthContext'
+import FirmSelector from '../FirmSelector'
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -12,13 +13,23 @@ const Header = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <span className="text-sm text-gray-700">{user?.fullName || user?.email}</span>
-          <button
-            onClick={logout}
-            className="btn btn-secondary text-sm"
-          >
-            Logout
-          </button>
+          <FirmSelector />
+          <div className="flex items-center space-x-3 border-l border-gray-300 pl-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                <span className="text-sm font-medium text-primary-600">
+                  {(user?.name || user?.email || 'U').charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <span className="text-sm text-gray-700">{user?.name || user?.email}</span>
+            </div>
+            <button
+              onClick={logout}
+              className="btn btn-secondary text-sm"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </header>
