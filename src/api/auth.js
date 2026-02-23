@@ -5,5 +5,5 @@ export const login = (email, password) => {
 }
 
 export const signup = (email, password, fullName) => {
-  return client.post('/auth/signup', { email, password, fullName })
+  return client.post('/auth/signup', { email, password, name: fullName })
 }
