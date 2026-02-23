@@ -1,28 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as firmsApi from '../api/firms'
-import * as templatesApi from '../api/templates'
 
 const FirmSetupPage = () => {
   const [firmName, setFirmName] = useState('')
-  const [billingTools, setBillingTools] = useState([])
-  const [selectedBillingTool, setSelectedBillingTool] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
-
-  useEffect(() => {
-    loadBillingTools()
-  }, [])
-
-  const loadBillingTools = async () => {
-    try {
-      const response = await templatesApi.getBillingTools()
-      setBillingTools(response.data)
-    } catch (err) {
-      setError('Failed to load billing tools')
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -30,8 +14,10 @@ const FirmSetupPage = () => {
     setLoading(true)
 
     try {
-      await firmsApi.createFirm(firmName, selectedBillingTool)
-      navigate('/template-wizard')
+      // Create firm with just the name for now
+      await firmsApi.createFirm(firmName)
+      // Navigate to upload page instead of template wizard
+      navigate('/upload')
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create firm')
     } finally {
@@ -64,28 +50,8 @@ const FirmSetupPage = () => {
               value={firmName}
               onChange={(e) => setFirmName(e.target.value)}
             />
-          </div>
-          
-          <div>
-            <label htmlFor="billingTool" className="block text-sm font-medium text-gray-700 mb-1">
-              Billing/Accounting Software
-            </label>
-            <select
-              id="billingTool"
-              required
-              className="input"
-              value={selectedBillingTool}
-              onChange={(e) => setSelectedBillingTool(e.target.value)}
-            >
-              <option value="">Select your billing software</option>
-              {billingTools.map((tool) => (
-                <option key={tool.id} value={tool.id}>
-                  {tool.name} - {tool.description}
-                </option>
-              ))}
-            </select>
             <p className="mt-2 text-sm text-gray-500">
-              This helps us provide the right CSV templates for your reports
+              You can add more details later from the settings page
             </p>
           </div>
           
@@ -95,7 +61,7 @@ const FirmSetupPage = () => {
               disabled={loading}
               className="btn btn-primary"
             >
-              {loading ? 'Creating...' : 'Continue to Template Setup'}
+              {loading ? 'Creating...' : 'Continue to Upload'}
             </button>
           </div>
         </form>
