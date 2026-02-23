@@ -11,8 +11,8 @@ import ChatPage from './pages/ChatPage'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
@@ -28,8 +28,8 @@ function App() {
             <Route path="chat" element={<ChatPage />} />
           </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   )
 }
 
